@@ -15,7 +15,8 @@ block content
                 div.whisky-card
                     h4 
                         a(href=whisky.url) #{whisky.name}
-                    img(src= whisky.imgUrl)
+                    a(href=whisky.url)
+                        img(src= whisky.imgUrl class='img-small')
                     p= whisky.price.toFixed(2)
                     p In Stock: #{whisky.stockQuantity}
                     p 

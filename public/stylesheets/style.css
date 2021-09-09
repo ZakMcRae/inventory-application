@@ -16,7 +16,7 @@ a:hover {
   color: #888888;
 }
 
-.whisky-card > img {
+.img-small {
   height: 100px;
   width: 100px;
   object-fit: scale-down;

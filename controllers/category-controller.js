@@ -3,11 +3,23 @@ const Category = require("../models/category");
 const Distillery = require("../models/distillery");
 
 exports.allCategory = async function (req, res, next) {
-  res.send("not implemented");
+  const categories = await Category.find({}).exec();
+  res.render("category-list", {
+    title: "All Categories",
+    categories: categories,
+  });
 };
 
 exports.getCategory = async function (req, res, next) {
-  res.send("not implemented");
+  const category = await Category.findById(req.params.id).exec();
+  const whiskies = await Whisky.find({ category: req.params.id })
+    .populate("distillery")
+    .exec();
+  res.render("whisky-list", {
+    title: category.name,
+    category: category,
+    whiskies: whiskies,
+  });
 };
 
 exports.createCategoryGet = async function (req, res, next) {

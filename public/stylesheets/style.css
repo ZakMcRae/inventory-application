@@ -50,3 +50,7 @@ a:hover {
   margin-bottom: 10px;
   max-width: 500px;
 }
+
+.category-card {
+  margin-top: 10px;
+}

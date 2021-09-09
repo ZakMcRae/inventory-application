@@ -3,6 +3,11 @@ extends layout
 block content
     div
         h1= title
+
+        if (category)
+            h4= category.description
+        
+
         div.whisky-list
             for whisky in whiskies
                 div.whisky-card

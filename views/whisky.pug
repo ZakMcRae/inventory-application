@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    div
+        h1 All Whiskies
+        div
+            for whisky in whiskies
+                div
+                    h4 #{whisky.name}
+                    img(src= whisky.imgUrl)
+                    p= whisky.price
+                    p= whisky.stockQuantity
+                    p= whisky.category.name
+                    p= whisky.distillery.name

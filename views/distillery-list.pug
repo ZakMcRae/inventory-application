@@ -1,0 +1,11 @@
+extends layout
+
+block content
+    div
+        h1= title
+        div.distillery-list
+            for distillery in distilleries
+                div.distillery-card
+                    h4 
+                        a(href=distillery.url) #{distillery.name}
+                    p= distillery.location

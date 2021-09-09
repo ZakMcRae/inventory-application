@@ -7,6 +7,8 @@ block content
         if (category)
             h4= category.description
         
+        if (distillery)
+            h4= distillery.location
 
         div.whisky-list
             for whisky in whiskies
@@ -17,6 +19,6 @@ block content
                     p= whisky.price.toFixed(2)
                     p In Stock: #{whisky.stockQuantity}
                     p 
-                        a(href=whisky.category.url) Category: #{whisky.category.name}
+                        a(href=whisky.category.url) Category: #{whisky.category.name ||category.name}
                     p 
-                        a(href=whisky.distillery.url) Distillery: #{whisky.distillery.name}
+                        a(href=whisky.distillery.url) Distillery: #{whisky.distillery.name || distillery.name}

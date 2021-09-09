@@ -19,7 +19,7 @@ var WhiskySchema = new mongoose.Schema({
 });
 
 WhiskySchema.virtual("url").get(function () {
-  return "/whisky/" + this.__id;
+  return "/whisky/" + this._id;
 });
 
 module.exports = mongoose.model("Whisky", WhiskySchema);

@@ -6,7 +6,7 @@ var DistillerySchema = new mongoose.Schema({
 });
 
 DistillerySchema.virtual("url").get(function () {
-  return "/distillery/" + this.__id;
+  return "/distillery/" + this._id;
 });
 
 module.exports = mongoose.model("Distillery", DistillerySchema);

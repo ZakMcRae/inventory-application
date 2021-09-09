@@ -3,8 +3,21 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+const mongoose = require("mongoose");
 
 var indexRouter = require("./routes/index");
+var whiskyRouter = require("./routes/whisky-routes");
+var categoryRouter = require("./routes/category-routes");
+var distilleryRouter = require("./routes/distillery-routes");
+
+require("dotenv").config();
+
+var mongoDB = process.env.DB_URL;
+
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+
+var db = mongoose.connection;
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 var app = express();
 
@@ -19,6 +32,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
+app.use("/whisky/", whiskyRouter);
+app.use("/category/", categoryRouter);
+app.use("/distillery/", distilleryRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

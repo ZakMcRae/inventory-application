@@ -58,3 +58,18 @@ a:hover {
 .distillery-card {
   margin-top: 10px;
 }
+
+.nav {
+  background-color: rgb(151, 151, 151);
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.nav-item {
+  padding: 5px;
+}
+
+.nav-home {
+  flex-grow: 1;
+}

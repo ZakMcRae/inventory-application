@@ -358,7 +358,7 @@ const createWhiskies = (callback) => {
       function (callback) {
         whiskyCreate(
           "Lot No.40 Dark Oak Canadian Whisky",
-          "https://www.lcbo.com/content/dam/lcbo/products/019563.jpg/jcr:content/renditions/cq5dam.web.1280.1280.jpeg",
+          "This whisky is finished in heavily charred barrels, giving it its deep amber colour. Expect aromas and flavours of caramel, vanilla, apricot, baking spice, and a hint of floral notes. It's full-bodied and fruity with a long-lasting finish. Enjoy neat alongside whisky-brushed ribs or pair it with dark chocolate cake.",
           60.1,
           15,
           "https://www.lcbo.com/content/dam/lcbo/products/019563.jpg/jcr:content/renditions/cq5dam.web.1280.1280.jpeg",

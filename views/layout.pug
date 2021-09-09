@@ -6,4 +6,9 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
+    div.nav 
+      a(href='/' class='nav-item nav-home') Home
+      a(href='/whisky/all' class='nav-item') Whiskies
+      a(href='/category/all' class='nav-item') Categories
+      a(href='/distillery/all' class='nav-item') Distilleries
     block content

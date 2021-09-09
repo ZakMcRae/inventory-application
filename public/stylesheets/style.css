@@ -3,6 +3,50 @@
   margin: 0;
 }
 
-img {
+body {
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  color: #888888;
+}
+
+.whisky-card > img {
   height: 100px;
+  width: 100px;
+  object-fit: scale-down;
+}
+
+.whisky-card {
+  border: 1px solid;
+  padding: 10px;
+  box-shadow: 5px 10px 5px 1px #888888;
+  width: 200px;
+  height: 250px;
+  margin: auto;
+  margin-bottom: 15px;
+}
+
+.whisky-list {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 80%;
+  margin: auto;
+}
+
+.product > img {
+  height: 400px;
+  width: 400px;
+  object-fit: scale-down;
+}
+
+.product-description {
+  margin: auto;
+  margin-bottom: 10px;
+  max-width: 500px;
 }

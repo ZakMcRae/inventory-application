@@ -1,0 +1,13 @@
+extends layout
+
+block content
+    h1= title
+    div.product
+        img(src=whisky.imgUrl)
+        p.product-description= whisky.description
+        p.category
+            a(href=whisky.category.url)= `Category: ${whisky.category.name}`
+        p.distillery
+            a(href=whisky.distillery.url)= `Distillery: ${whisky.distillery.name}`
+        p.stock= `In Stock: ${whisky.stockQuantity}`
+        p.price= `Price: ${whisky.price.toFixed(2)}`

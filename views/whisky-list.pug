@@ -1,0 +1,17 @@
+extends layout
+
+block content
+    div
+        h1= title
+        div.whisky-list
+            for whisky in whiskies
+                div.whisky-card
+                    h4 
+                        a(href=whisky.url) #{whisky.name}
+                    img(src= whisky.imgUrl)
+                    p= whisky.price.toFixed(2)
+                    p In Stock: #{whisky.stockQuantity}
+                    p 
+                        a(href=whisky.category.url) Category: #{whisky.category.name}
+                    p 
+                        a(href=whisky.distillery.url) Distillery: #{whisky.distillery.name}

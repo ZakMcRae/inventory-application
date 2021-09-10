@@ -6,12 +6,18 @@ const { body, validationResult } = require("express-validator");
 const async = require("async");
 
 exports.allWhisky = async function (req, res, next) {
-  // todo sort list for display purposes - possibly add filter options
-  const whiskies = await Whisky.find({})
-    .populate("category")
-    .populate("distillery")
-    .exec();
-  res.render("whisky-list", { title: "Whiskies", whiskies: whiskies });
+  try {
+    // todo sort list for display purposes - possibly add filter options
+    const whiskies = await Whisky.find({})
+      .populate("category")
+      .populate("distillery")
+      .exec();
+    res.render("whisky-list", { title: "Whiskies", whiskies: whiskies });
+  } catch (err) {
+    if (err) {
+      return next(err);
+    }
+  }
 };
 
 exports.getWhisky = async function (req, res, next) {

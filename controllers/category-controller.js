@@ -5,11 +5,17 @@ const { body, validationResult } = require("express-validator");
 const async = require("async");
 
 exports.allCategory = async function (req, res, next) {
-  const categories = await Category.find({}).exec();
-  res.render("category-list", {
-    title: "All Categories",
-    categories: categories,
-  });
+  try {
+    const categories = await Category.find({}).exec();
+    res.render("category-list", {
+      title: "All Categories",
+      categories: categories,
+    });
+  } catch (err) {
+    if (err) {
+      return next(err);
+    }
+  }
 };
 
 exports.getCategory = async function (req, res, next) {

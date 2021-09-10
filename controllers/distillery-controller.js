@@ -5,11 +5,17 @@ const { body, validationResult } = require("express-validator");
 const async = require("async");
 
 exports.allDistillery = async function (req, res, next) {
-  const distilleries = await Distillery.find().exec();
-  res.render("distillery-list", {
-    title: "All Distilleries",
-    distilleries: distilleries,
-  });
+  try {
+    const distilleries = await Distillery.find().exec();
+    res.render("distillery-list", {
+      title: "All Distilleries",
+      distilleries: distilleries,
+    });
+  } catch (err) {
+    if (err) {
+      next(err);
+    }
+  }
 };
 
 exports.getDistillery = async function (req, res, next) {

@@ -6,9 +6,6 @@ const whiskyController = require("../controllers/whisky-controller");
 // display all whiskies in database
 router.get("/all", whiskyController.allWhisky);
 
-// display specific whisky
-router.get("/:id", whiskyController.getWhisky);
-
 // create new whisky - GET
 router.get("/create", whiskyController.createWhiskyGet);
 
@@ -26,5 +23,8 @@ router.get("/:id/delete", whiskyController.deleteWhiskyGet);
 
 // delete whisky - POST
 router.post("/:id/delete", whiskyController.deleteWhiskyPost);
+
+// display specific whisky
+router.get("/:id", whiskyController.getWhisky);
 
 module.exports = router;

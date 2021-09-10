@@ -6,9 +6,6 @@ const distilleryController = require("../controllers/distillery-controller");
 // display all categories in database
 router.get("/all", distilleryController.allDistillery);
 
-// display specific distillery
-router.get("/:id", distilleryController.getDistillery);
-
 // create new distillery - GET
 router.get("/create", distilleryController.createDistilleryGet);
 
@@ -26,5 +23,8 @@ router.get("/:id/delete", distilleryController.deleteDistilleryGet);
 
 // delete distillery - POST
 router.post("/:id/delete", distilleryController.deleteDistilleryPost);
+
+// display specific distillery
+router.get("/:id", distilleryController.getDistillery);
 
 module.exports = router;

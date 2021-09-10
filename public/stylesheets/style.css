@@ -81,3 +81,19 @@ a:hover {
 .nav-home {
   flex-grow: 1;
 }
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form > input,
+form > select {
+  width: 300px;
+  margin: 5px auto;
+}
+
+form > button {
+  width: 100px;
+  margin: auto;
+}

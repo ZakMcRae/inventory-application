@@ -1,0 +1,36 @@
+extends layout 
+
+block content
+    div
+        form(action="" method="POST")
+            label(for='name') Name: 
+            input(type='text', name='name', value=(whisky === undefined ? '': whisky.name))
+            
+            label(for='description') Description: 
+            input(type='text', name='description', value=(whisky === undefined  ? '': whisky.description))
+
+            label(for='price') Price: 
+            input(type='text', name='price', value=(whisky === undefined  ? '': whisky.price))
+
+            label(for='stockQuantity') Stock Quantity: 
+            input(type='text', name='stockQuantity', value=(whisky === undefined  ? '': whisky.stockQuantity))
+
+            label(for='imgUrl') Image URL: 
+            input(type='text', name='imgUrl', value=(whisky === undefined  ? '': whisky.imgUrl))
+
+            select(name='category')
+                option(value='' selected disabled hidden) Category
+                for category in categories 
+                    option(value=(whisky===undefined ? '':whisky.category)) #{category.name}
+
+            select(name='distillery')
+                option(value='' selected disabled hidden) Distillery
+                for distillery in distilleries 
+                    option(value=distillery.name) #{distillery.name}
+
+            button(type='submit') Submit
+
+        if errors 
+            ul 
+                for error in errors
+                    li!= error.msg

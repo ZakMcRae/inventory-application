@@ -43,7 +43,41 @@ exports.getWhisky = async function (req, res, next) {
 };
 
 exports.createWhiskyGet = async function (req, res, next) {
-  res.send("not implemented");
+  // todo database validation to stop duplicate whiskeys/categories/distilleries by name
+  async.parallel(
+    {
+      categories: (callback) => {
+        Category.find().exec(callback);
+      },
+      distilleries: (callback) => {
+        Distillery.find().exec(callback);
+      },
+    },
+    (err, results) => {
+      if (err) {
+        return next(err);
+      }
+      if (results.categories === null) {
+        const err = new Error(
+          "No Categories found. Add Categories before adding Whisky"
+        );
+        err.status(404);
+        return next(err);
+      }
+      if (results.distilleries === null) {
+        const err = new Error(
+          "No Distilleries found. Add Distilleries before adding Whisky"
+        );
+        err.status(404);
+        return next(err);
+      }
+      res.render("whisky-form", {
+        title: "Add new Whisky",
+        categories: results.categories,
+        distilleries: results.distilleries,
+      });
+    }
+  );
 };
 
 exports.createWhiskyPOST = async function (req, res, next) {

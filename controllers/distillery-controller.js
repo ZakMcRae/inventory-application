@@ -1,6 +1,8 @@
 const Whisky = require("../models/whisky");
 const Category = require("../models/category");
 const Distillery = require("../models/distillery");
+const { body, validationResult } = require("express-validator");
+const async = require("async");
 
 exports.allDistillery = async function (req, res, next) {
   const distilleries = await Distillery.find().exec();
@@ -11,15 +13,37 @@ exports.allDistillery = async function (req, res, next) {
 };
 
 exports.getDistillery = async function (req, res, next) {
-  const distillery = await Distillery.findById(req.params.id).exec();
-  const whiskies = await Whisky.find({ distillery: req.params.id })
-    .populate("category")
-    .exec();
-  res.render("whisky-list", {
-    title: distillery.name,
-    distillery: distillery,
-    whiskies: whiskies,
-  });
+  async.parallel(
+    {
+      distillery: (callback) => {
+        Distillery.findById(req.params.id).exec(callback);
+      },
+      whiskies: (callback) => {
+        Whisky.find({ distillery: req.params.id })
+          .populate("category")
+          .exec(callback);
+      },
+    },
+    (err, results) => {
+      if (err) {
+        // throw 500 rather than show user specific error when id is invalid
+        var err = new Error("Something went wrong");
+        err.status = 500;
+        return next(err);
+      }
+      // if distillery not found in database throw 404
+      if (results.distillery === null) {
+        var err = new Error("Distillery not found");
+        err.status = 404;
+        return next(err);
+      }
+      res.render("whisky-list", {
+        title: results.distillery.name,
+        distillery: results.distillery,
+        whiskies: results.whiskies,
+      });
+    }
+  );
 };
 
 exports.createDistilleryGet = async function (req, res, next) {

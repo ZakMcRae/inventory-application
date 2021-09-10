@@ -2,6 +2,7 @@ const Whisky = require("../models/whisky");
 const Category = require("../models/category");
 const Distillery = require("../models/distillery");
 const { body, validationResult } = require("express-validator");
+const async = require("async");
 
 exports.allCategory = async function (req, res, next) {
   const categories = await Category.find({}).exec();
@@ -12,32 +13,37 @@ exports.allCategory = async function (req, res, next) {
 };
 
 exports.getCategory = async function (req, res, next) {
-  try {
-    const category = await Category.findById(req.params.id).exec();
-    const whiskies = await Whisky.find({ category: req.params.id })
-      .populate("distillery")
-      .exec();
-
-    // if category not found in database throw 404
-    if (category === null) {
-      var err = new Error("Category not found");
-      err.status = 404;
-      return next(err);
+  async.parallel(
+    {
+      category: (callback) => {
+        Category.findById(req.params.id).exec(callback);
+      },
+      whiskies: (callback) => {
+        Whisky.find({ category: req.params.id })
+          .populate("distillery")
+          .exec(callback);
+      },
+    },
+    (err, results) => {
+      if (err) {
+        // throw 500 rather than show user specific error when id is invalid
+        var err = new Error("Something went wrong");
+        err.status = 500;
+        return next(err);
+      }
+      // if category not found in database throw 404
+      if (results.category === null) {
+        var err = new Error("Category not found");
+        err.status = 404;
+        return next(err);
+      }
+      res.render("whisky-list", {
+        title: results.category.name,
+        category: results.category,
+        whiskies: results.whiskies,
+      });
     }
-
-    res.render("whisky-list", {
-      title: category.name,
-      category: category,
-      whiskies: whiskies,
-    });
-    // throwing 404 error in place of real error to user
-  } catch (err) {
-    if (err) {
-      var err = new Error("Category not found");
-      err.status = 404;
-      return next(err);
-    }
-  }
+  );
 };
 
 exports.createCategoryGet = async function (req, res, next) {

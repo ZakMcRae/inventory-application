@@ -4,10 +4,12 @@ block content
     div
         h1= title
         div.category-list
-            for category in categories
-                div.category-card
-                    h4 
-                        a(href=category.url) #{category.name}
-                    p= category.description
-        
+            if (categories)
+                for category in categories
+                    div.category-card
+                        h4 
+                            a(href=category.url) #{category.name}
+                        p= category.description
+            else 
+                p There are no categories!
         a(href='/category/create') +New Category

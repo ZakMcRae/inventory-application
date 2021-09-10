@@ -53,12 +53,45 @@ exports.getDistillery = async function (req, res, next) {
 };
 
 exports.createDistilleryGet = async function (req, res, next) {
-  res.send("not implemented");
+  res.render("distillery-form", { title: "Create New Distillery" });
 };
 
-exports.createDistilleryPOST = async function (req, res, next) {
-  res.send("not implemented");
-};
+exports.createDistilleryPOST = [
+  body("name")
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage("Name must not be empty"),
+  body("location")
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage("Location must not be empty"),
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      res.render("distillery-form", {
+        title: "Create New Distillery",
+        distillery: req.body,
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      const distillery = new Distillery({
+        name: req.body.name,
+        location: req.body.location,
+      });
+      distillery.save((err) => {
+        if (err) {
+          return next(err);
+        }
+
+        res.redirect(distillery.url);
+      });
+    }
+  },
+];
 
 exports.editDistilleryGet = async function (req, res, next) {
   res.send("not implemented");

@@ -1,7 +1,6 @@
 const Whisky = require("../models/whisky");
 const Category = require("../models/category");
 const Distillery = require("../models/distillery");
-const whisky = require("../models/whisky");
 const { body, validationResult } = require("express-validator");
 const async = require("async");
 
@@ -36,14 +35,14 @@ exports.getWhisky = async function (req, res, next) {
     res.render("whisky-detail", { title: whisky.name, whisky: whisky });
   } catch (err) {
     // throw 500 rather than show user specific error when id is invalid
-    var err = new Error("Something went wrong");
+    err.message = "Something went wrong";
     err.status = 500;
     return next(err);
   }
 };
 
+// form for creating a new whisky
 exports.createWhiskyGet = async function (req, res, next) {
-  // todo database validation to stop duplicate whiskeys/categories/distilleries by name
   async.parallel(
     {
       categories: (callback) => {
@@ -72,7 +71,7 @@ exports.createWhiskyGet = async function (req, res, next) {
         return next(err);
       }
       res.render("whisky-form", {
-        title: "Add new Whisky",
+        title: "Add New Whisky",
         categories: results.categories,
         distilleries: results.distilleries,
       });
@@ -80,9 +79,49 @@ exports.createWhiskyGet = async function (req, res, next) {
   );
 };
 
-exports.createWhiskyPOST = async function (req, res, next) {
-  res.send("not implemented");
-};
+// handle new whisky form submission
+exports.createWhiskyPOST = [
+  body("name")
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage("Name must not be empty"),
+  body("description").trim().escape(),
+  body("price").trim().escape(),
+  body("stockQuantity").trim().escape(),
+  body("imgUrl").trim(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      res.render("whisky-form", {
+        title: "Add New aWhisky",
+        whisky: req.body,
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      const whisky = new Whisky({
+        name: req.body.name,
+        description: req.body.description,
+        price: req.body.price,
+        stockQuantity: req.body.stockQuantity,
+        imgUrl: req.body.imgUrl,
+        category: req.body.category,
+        distillery: req.body.distillery,
+      });
+      whisky.save((err) => {
+        if (err) {
+          return next(err);
+        }
+
+        res.redirect(whisky.url);
+      });
+    }
+  },
+];
+
+// todo may have to pass back category and distillery on whiskey-form (category === undefined ? '':category._id)
 
 exports.editWhiskyGet = async function (req, res, next) {
   res.send("not implemented");

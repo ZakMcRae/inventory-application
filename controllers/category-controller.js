@@ -3,7 +3,7 @@ const Category = require("../models/category");
 const { body, validationResult } = require("express-validator");
 const async = require("async");
 
-// retrieve all categories from database an display in list view
+// retrieve all categories from database and display in list view
 exports.allCategory = async function (req, res, next) {
   try {
     const categories = await Category.find({}).exec();
@@ -101,7 +101,7 @@ exports.editCategoryGet = async function (req, res, next) {
   try {
     const category = await Category.findById(req.params.id).exec();
     res.render("category-form", {
-      title: "All Categories",
+      title: "Edit Category",
       category: category,
     });
   } catch (err) {

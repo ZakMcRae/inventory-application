@@ -54,7 +54,6 @@ exports.getCategory = async function (req, res, next) {
 };
 
 // form for creating a new category
-// eslint-disable-next-line no-unused-vars
 exports.createCategoryGet = async function (req, res, next) {
   res.render("category-form", { title: "Create New Category" });
 };
@@ -200,7 +199,6 @@ exports.deleteCategoryGet = async function (req, res, next) {
 exports.deleteCategoryPost = async function (req, res, next) {
   try {
     // if admin password incorrect redirect back to delete confirmation
-    // eslint-disable-next-line no-undef
     if (req.body.adminPassword !== process.env.ADMIN_PASSWORD) {
       res.redirect(`/category/${req.params.id}/delete/?authorised=false`);
     } else {

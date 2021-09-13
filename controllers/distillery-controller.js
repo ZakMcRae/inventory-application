@@ -1,5 +1,4 @@
 const Whisky = require("../models/whisky");
-const Category = require("../models/category");
 const Distillery = require("../models/distillery");
 const { body, validationResult } = require("express-validator");
 const async = require("async");
@@ -33,13 +32,13 @@ exports.getDistillery = async function (req, res, next) {
     (err, results) => {
       if (err) {
         // throw 500 rather than show user specific error when id is invalid
-        var err = new Error("Something went wrong");
+        err.message = "Something went wrong";
         err.status = 500;
         return next(err);
       }
       // if distillery not found in database throw 404
       if (results.distillery === null) {
-        var err = new Error("Distillery not found");
+        err.message = "Distillery not found";
         err.status = 404;
         return next(err);
       }

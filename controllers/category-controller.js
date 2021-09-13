@@ -1,6 +1,5 @@
 const Whisky = require("../models/whisky");
 const Category = require("../models/category");
-const Distillery = require("../models/distillery");
 const { body, validationResult } = require("express-validator");
 const async = require("async");
 
@@ -35,13 +34,13 @@ exports.getCategory = async function (req, res, next) {
     (err, results) => {
       // throw 500 rather than show user specific error when id is invalid
       if (err) {
-        var err = new Error("Something went wrong");
+        err.message = "Something went wrong";
         err.status = 500;
         return next(err);
       }
       // if category not found in database throw 404
       if (results.category === null) {
-        var err = new Error("Category not found");
+        const err = new Error("Category not found");
         err.status = 404;
         return next(err);
       }
@@ -55,6 +54,7 @@ exports.getCategory = async function (req, res, next) {
 };
 
 // form for creating a new category
+// eslint-disable-next-line no-unused-vars
 exports.createCategoryGet = async function (req, res, next) {
   res.render("category-form", { title: "Create New Category" });
 };
@@ -174,13 +174,13 @@ exports.deleteCategoryGet = async function (req, res, next) {
     (err, results) => {
       // throw 500 rather than show user specific error when category id is invalid
       if (err) {
-        var err = new Error("Something went wrong");
+        err.message = "Something went wrong";
         err.status = 500;
         return next(err);
       }
       // if category not found in database throw 404
       if (results.category == null) {
-        var err = new Error("Category not found");
+        const err = new Error("Category not found");
         err.status = 404;
         return next(err);
       }
@@ -200,6 +200,7 @@ exports.deleteCategoryGet = async function (req, res, next) {
 exports.deleteCategoryPost = async function (req, res, next) {
   try {
     // if admin password incorrect redirect back to delete confirmation
+    // eslint-disable-next-line no-undef
     if (req.body.adminPassword !== process.env.ADMIN_PASSWORD) {
       res.redirect(`/category/${req.params.id}/delete/?authorised=false`);
     } else {
@@ -208,7 +209,7 @@ exports.deleteCategoryPost = async function (req, res, next) {
       res.redirect("/category/all");
     }
   } catch (err) {
-    var err = new Error("Something went wrong");
+    err.message = "Something went wrong";
     err.status = 500;
     return next(err);
   }

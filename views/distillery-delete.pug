@@ -1,0 +1,28 @@
+extends layout 
+
+block content
+    h1= title 
+    h2= distillery.name
+    p= distillery.location
+
+    if (whiskies.length > 0)
+        p To delete a distillery, there must be no whiskies in the distillery
+        p You must delete the following whiskies to delete the distillery: 
+        for whisky in whiskies
+            ul
+                li 
+                    a(href=whisky.url) #{whisky.name}
+
+    else
+        p Are you sure you want to delete?
+
+        form(method='POST' action='')
+            div.form-group
+                input(type='hidden',name='distilleryId', required='true', value=distillery._id )
+
+                input(name='adminPassword', required='true' placeholder='Admin Password')
+                
+                if (authorised === 'false')
+                    p Incorrect Admin Password
+
+            button.btn.btn-primary(type='submit') Delete

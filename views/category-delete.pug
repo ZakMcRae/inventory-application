@@ -1,0 +1,28 @@
+extends layout 
+
+block content
+    h1= title 
+    h2= category.name
+    p= category.description
+
+    if (whiskies.length > 0)
+        p To delete a category, there must be no whiskies in the category
+        p You must delete the following whiskies to delete the category: 
+        for whisky in whiskies
+            ul
+                li 
+                    a(href=whisky.url) #{whisky.name}
+
+    else
+        p Are you sure you want to delete?
+
+        form(method='POST' action='')
+            div.form-group
+                input(type='hidden',name='categoryId', required='true', value=category._id )
+
+                input(name='adminPassword', required='true' placeholder='Admin Password')
+                
+                if (authorised === 'false')
+                    p Incorrect Admin Password
+
+            button.btn.btn-primary(type='submit') Delete

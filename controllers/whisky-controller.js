@@ -4,12 +4,15 @@ const Distillery = require("../models/distillery");
 const { body, validationResult } = require("express-validator");
 const async = require("async");
 
+// display all whiskies
 exports.allWhisky = async function (req, res, next) {
   try {
     // todo sort list for display purposes - possibly add filter options
+    // maybe pass a query parameter? -> .sort(req.query.var)
     const whiskies = await Whisky.find({})
       .populate("category")
       .populate("distillery")
+      .sort("price")
       .exec();
     res.render("whisky-list", { title: "Whiskies", whiskies: whiskies });
   } catch (err) {
@@ -19,6 +22,7 @@ exports.allWhisky = async function (req, res, next) {
   }
 };
 
+// display a specific whisky
 exports.getWhisky = async function (req, res, next) {
   try {
     const whisky = await Whisky.findById(req.params.id)
@@ -43,6 +47,7 @@ exports.getWhisky = async function (req, res, next) {
 
 // form for creating a new whisky
 exports.createWhiskyGet = async function (req, res, next) {
+  // get category/distillery values for selection drop downs on form
   async.parallel(
     {
       categories: (callback) => {
@@ -54,6 +59,8 @@ exports.createWhiskyGet = async function (req, res, next) {
     },
     (err, results) => {
       if (err) {
+        err.message = "Something went wrong.";
+        err.status = 500;
         return next(err);
       }
       if (results.categories === null) {
@@ -79,14 +86,14 @@ exports.createWhiskyGet = async function (req, res, next) {
   );
 };
 
-// handle new whisky form submission
+// handle new whisky form submission/validation
 exports.createWhiskyPOST = [
   body("name")
     .trim()
     .isLength({ min: 1 })
     .escape()
     .withMessage("Name must not be empty"),
-  body("description").trim().escape(),
+  body("description").trim(),
   body("price").trim().escape(),
   body("stockQuantity").trim().escape(),
   body("imgUrl").trim(),
@@ -123,6 +130,7 @@ exports.createWhiskyPOST = [
 
 // form to edit a whisky
 exports.editWhiskyGet = async function (req, res, next) {
+  // get whisky info and category/distillery values for selection drop downs on form
   async.parallel(
     {
       whisky: (callback) => {
@@ -173,6 +181,7 @@ exports.editWhiskyGet = async function (req, res, next) {
   );
 };
 
+// handle edit whisky form submission/validation
 exports.editWhiskyPost = [
   body("name")
     .trim()
@@ -187,6 +196,7 @@ exports.editWhiskyPost = [
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
+      // if validation errors exist - get category/distillery values for selection drop downs on form and send user back to form
       async.parallel(
         {
           categories: (callback) => {
@@ -226,6 +236,7 @@ exports.editWhiskyPost = [
         }
       );
     } else {
+      // no validation errors - update database and redirect to edited whisky
       const whisky = new Whisky({
         _id: req.params.id,
         name: req.body.name,
@@ -244,7 +255,6 @@ exports.editWhiskyPost = [
           if (err) {
             return next(err);
           }
-          // Successful - redirect to book detail page.
           res.redirect(whisky.url);
         }
       );
@@ -252,10 +262,45 @@ exports.editWhiskyPost = [
   },
 ];
 
+// confirmation page/form for deleteing a whisky
 exports.deleteWhiskyGet = async function (req, res, next) {
-  res.send("not implemented");
+  try {
+    const whisky = await Whisky.findById(req.params.id)
+      .populate("category")
+      .populate("distillery")
+      .exec();
+
+    if (whisky === null) {
+      const err = new Error("Whisky not found");
+      err.status = 404;
+      return next(err);
+    }
+
+    res.render("whisky-delete", {
+      whisky: whisky,
+      authorised: req.query.authorised,
+    });
+  } catch (err) {
+    err.message = "Something went wrong";
+    err.status = 500;
+    return next(err);
+  }
 };
 
+// handle delete whisky form submission
 exports.deleteWhiskyPost = async function (req, res, next) {
-  res.send("not implemented");
+  try {
+    // if admin password incorrect redirect back to delete confirmation
+    if (req.body.adminPassword !== process.env.ADMIN_PASSWORD) {
+      res.redirect(`/whisky/${req.params.id}/delete/?authorised=false`);
+    } else {
+      // admin password correct - delete whisky
+      await Whisky.findByIdAndDelete(req.params.id);
+      res.redirect("/whisky/all");
+    }
+  } catch (err) {
+    err.message = "Something went wrong";
+    err.status = 500;
+    return next(err);
+  }
 };

@@ -1,0 +1,19 @@
+extends layout 
+
+block content
+    h1= title 
+    h2= whisky.name
+    p= whisky.description
+
+    p Are you sure you want to delete?
+
+    form(method='POST' action='')
+        div.form-group
+            input(type='hidden',name='whiskyId', required='true', value=whisky._id )
+
+            input(name='adminPassword', required='true' placeholder='Admin Password')
+            
+            if (authorised === 'false')
+                p Incorrect Admin Password
+
+        button.btn.btn-primary(type='submit') Delete

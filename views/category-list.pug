@@ -7,8 +7,13 @@ block content
             if (categories)
                 for category in categories
                     div.category-card
-                        h4 
-                            a(href=category.url) #{category.name}
-                        p= category.description
+                        div.upper-category-card
+                            h4 
+                                a(href=category.url) #{category.name}
+                            p= category.description
             else 
                 p There are no categories!
+        
+        div.add-section
+            h2 Looking for a specific Category?
+            a(href='/category/create' class='button') Add New Category

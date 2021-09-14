@@ -60,14 +60,14 @@ exports.createWhiskyGet = async function (req, res, next) {
         const err = new Error(
           "No Categories found. Add Categories before adding Whisky"
         );
-        err.status(404);
+        err.status = 404;
         return next(err);
       }
       if (results.distilleries === null) {
         const err = new Error(
           "No Distilleries found. Add Distilleries before adding Whisky"
         );
-        err.status(404);
+        err.status = 404;
         return next(err);
       }
       res.render("whisky-form", {
@@ -121,15 +121,136 @@ exports.createWhiskyPOST = [
   },
 ];
 
-// todo may have to pass back category and distillery on whiskey-form (category === undefined ? '':category._id)
-
+// form to edit a whisky
 exports.editWhiskyGet = async function (req, res, next) {
-  res.send("not implemented");
+  async.parallel(
+    {
+      whisky: (callback) => {
+        Whisky.findById(req.params.id)
+          .populate("category")
+          .populate("distillery")
+          .exec(callback);
+      },
+      categories: (callback) => {
+        Category.find().exec(callback);
+      },
+      distilleries: (callback) => {
+        Distillery.find().exec(callback);
+      },
+    },
+    (err, results) => {
+      if (err) {
+        err.message = "Something went wrong.";
+        err.status = 500;
+        return next(err);
+      }
+      if (results.whisky === null) {
+        const err = new Error("Whisky not found");
+        err.status = 404;
+        return next(err);
+      }
+      if (results.categories === null) {
+        const err = new Error(
+          "No Categories found. Add Categories before adding Whisky"
+        );
+        err.status = 404;
+        return next(err);
+      }
+      if (results.distilleries === null) {
+        const err = new Error(
+          "No Distilleries found. Add Distilleries before adding Whisky"
+        );
+        err.status = 404;
+        return next(err);
+      }
+      res.render("whisky-form", {
+        title: "Edit Whisky",
+        whisky: results.whisky,
+        categories: results.categories,
+        distilleries: results.distilleries,
+      });
+    }
+  );
 };
 
-exports.editWhiskyPost = async function (req, res, next) {
-  res.send("not implemented");
-};
+exports.editWhiskyPost = [
+  body("name")
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage("Name must not be empty"),
+  body("description").trim().escape(),
+  body("price").trim().escape(),
+  body("stockQuantity").trim().escape(),
+  body("imgUrl").trim(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      async.parallel(
+        {
+          categories: (callback) => {
+            Category.find().exec(callback);
+          },
+          distilleries: (callback) => {
+            Distillery.find().exec(callback);
+          },
+        },
+        (err, results) => {
+          if (err) {
+            err.message = "Something went wrong.";
+            err.status = 500;
+            return next(err);
+          }
+          if (results.categories === null) {
+            const err = new Error(
+              "No Categories found. Add Categories before adding Whisky"
+            );
+            err.status = 404;
+            return next(err);
+          }
+          if (results.distilleries === null) {
+            const err = new Error(
+              "No Distilleries found. Add Distilleries before adding Whisky"
+            );
+            err.status = 404;
+            return next(err);
+          }
+
+          res.render("whisky-form", {
+            title: "Edit Whisky",
+            whisky: req.body,
+            categories: results.categories,
+            distilleries: results.distilleries,
+          });
+        }
+      );
+    } else {
+      const whisky = new Whisky({
+        _id: req.params.id,
+        name: req.body.name,
+        description: req.body.description,
+        price: req.body.price,
+        stockQuantity: req.body.stockQuantity,
+        imgUrl: req.body.imgUrl,
+        category: req.body.category,
+        distillery: req.body.distillery,
+      });
+      Whisky.findByIdAndUpdate(
+        req.params.id,
+        whisky,
+        {},
+        function (err, whisky) {
+          if (err) {
+            return next(err);
+          }
+          // Successful - redirect to book detail page.
+          res.redirect(whisky.url);
+        }
+      );
+    }
+  },
+];
 
 exports.deleteWhiskyGet = async function (req, res, next) {
   res.send("not implemented");

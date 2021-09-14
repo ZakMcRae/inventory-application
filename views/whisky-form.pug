@@ -21,12 +21,20 @@ block content
             input(type='text', name='imgUrl', value=(whisky === undefined  ? '': whisky.imgUrl))
 
             select(name='category' required)
-                option(value='' selected disabled hidden) Category
+                if (whisky === undefined)
+                    option(value='' selected disabled hidden) Category
+                else 
+                    option(value=whisky.category._id selected) #{whisky.category.name}
+                
                 for category in categories
                     option(value=category._id) #{category.name}
 
             select(name='distillery' required)
-                option(value='' selected disabled hidden) Distillery
+                if (whisky === undefined)
+                    option(value='' selected disabled hidden) Distillery
+                else 
+                    option(value=whisky.distillery._id) #{whisky.distillery.name}
+
                 for distillery in distilleries
                     option(value=distillery._id) #{distillery.name}
 

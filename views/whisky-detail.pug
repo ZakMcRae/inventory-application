@@ -11,3 +11,6 @@ block content
             a(href=whisky.distillery.url)= `Distillery: ${whisky.distillery.name}`
         p.stock= `In Stock: ${whisky.stockQuantity}`
         p.price= `Price: ${whisky.price.toFixed(2)}`
+
+    a(href=`/whisky/${whisky.id}/edit` class='edit-button button') Edit Whisky
+    a(href=`/whisky/${whisky.id}/delete` class='delete-button button') Delete Whisky

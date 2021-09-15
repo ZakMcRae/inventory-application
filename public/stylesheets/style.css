@@ -13,7 +13,40 @@
 }
 
 html,
-body body {
+body {
+  height: 100%;
+  margin: 0;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--main-bg-colour);
+  border: 1px solid var(--main-ac-colour);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--main-ac-colour);
+}
+
+.content {
+  min-height: 100%;
+  background-color: var(--main-bg-colour);
+}
+
+.content-inside {
+  padding-bottom: 95px;
+}
+
+.footer {
+  height: 95px;
+  margin-top: -95px;
+}
+
+body {
   text-align: center;
 }
 
@@ -30,15 +63,6 @@ a:hover {
   color: #888888;
 }
 
-.main {
-  background-color: var(--main-bg-colour);
-}
-
-/* .background-image {
-  background-image: url("https://images.unsplash.com/photo-1532634861-1e70d179e7bc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80");
-  width: 100%;
-} */
-
 .img-small {
   height: 100px;
   width: 100px;
@@ -52,9 +76,8 @@ a:hover {
   background-color: var(--card-bg-colour);
   border-radius: 5px;
   width: 200px;
-  height: 230px;
+  height: 240px;
   margin: auto;
-  margin-bottom: 15px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -76,6 +99,7 @@ a:hover {
 .whisky-list {
   display: flex;
   flex-wrap: wrap;
+  gap: 15px 5px;
   max-width: 80%;
   margin: auto;
 }
@@ -106,6 +130,7 @@ a:hover {
 
 .nav-home {
   flex-grow: 1;
+  text-align: start;
 }
 
 form {
@@ -143,7 +168,7 @@ form > button {
   width: 80%;
   border-top: 1px solid rgb(100, 100, 100);
   margin: auto;
-  margin-top: 10px;
+  margin-top: 25px;
   padding: 10px 0px;
 }
 
@@ -155,8 +180,6 @@ form > button {
   border-radius: 5px;
   width: 300px;
   height: 125px;
-  margin: auto;
-  margin-bottom: 15px;
   display: flex;
   flex-direction: column;
 }
@@ -171,8 +194,13 @@ form > button {
 }
 
 .category-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px 5px;
   max-width: 80%;
   margin: auto;
+  margin-top: 10px;
+  justify-content: space-evenly;
 }
 
 .distillery-card {
@@ -184,7 +212,6 @@ form > button {
   width: 300px;
   height: 100px;
   margin: auto;
-  margin-bottom: 15px;
   display: flex;
   flex-direction: column;
 }
@@ -199,14 +226,16 @@ form > button {
 }
 
 .distillery-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px 5px;
   max-width: 80%;
   margin: auto;
+  margin-top: 10px;
+  justify-content: space-evenly;
 }
 
 .footer {
-  /* position: fixed; */
-  bottom: 0;
-  left: 0;
   width: 100%;
   background-color: var(--main-ac-colour);
   color: var(--main-actxt-colour);
@@ -214,7 +243,6 @@ form > button {
   flex-direction: row;
   justify-content: space-evenly;
   align-items: flex-start;
-  padding: 5px 0px;
   font-size: 14px;
 }
 
@@ -241,17 +269,18 @@ form > button {
 }
 
 .follow-items {
-  display: flex;
+  /* display: flex; */
   flex-direction: row;
   justify-content: space-evenly;
 }
 
 .follow-items > i {
   font-size: 24px;
+  margin-right: 10px;
 }
 
 .footer-title {
-  margin-bottom: 10px;
+  margin: 10px 0px;
 }
 
 .main-title {
@@ -261,4 +290,24 @@ form > button {
 .main-subtitle {
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.welcome {
+  background-image: url("/images/barrel.jpeg");
+  background-size: cover;
+  background-position-y: 50%;
+  color: white;
+  height: calc(100vh - 125px);
+}
+
+.welcome-message {
+  position: relative;
+  top: 43%;
+}
+
+.welcome-message {
+  font-size: 24px;
+  text-shadow: 0px 0px 2px white, 2px 2px 10px #888888;
+  /* text-shadow: ; */
+  color: maroon;
 }

@@ -8,9 +8,12 @@ block content
                 for category in categories
                     div.category-card
                         div.upper-category-card
-                            h4 
+                            h2 
                                 a(href=category.url) #{category.name}
-                            p= category.description
+                            a(href=category.url)= category.description
+                        div.lower-category-card
+                            a(href=`/category/${category.id}/edit` class='button button-small') Edit
+                            a(href=`/category/${category.id}/delete` class='button button-small') Delete
             else 
                 p There are no categories!
         

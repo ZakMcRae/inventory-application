@@ -1,14 +1,17 @@
 extends layout
 
 block content
-    div
-        h1= title
+    div.main
+        h1.main-title= title
 
         if (category)
-            h4= category.description
+            h4.main-subtitle= category.description
         
-        if (distillery)
-            h4= distillery.location
+        else if (distillery)
+            h4.main-subtitle= distillery.location
+
+        else 
+            h4.main-subtitle= 'Here is a list of our full selection. You can click on a category or distillery below to narrow down your options.'
 
         
         div.whisky-list
@@ -28,6 +31,6 @@ block content
             else 
                 p There are no whiskies!
 
-    div.add-section
-        h3 Looking for something that isn't here?
-        a(href=`/whisky/create` class='button') Click here to add a Whisky
+        div.add-section
+            h3 Looking for something that isn't here?
+            a(href=`/whisky/create` class='button') Click here to add a Whisky

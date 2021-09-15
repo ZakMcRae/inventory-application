@@ -7,9 +7,13 @@ block content
             if (distilleries)
                 for distillery in distilleries
                     div.distillery-card
-                        h4 
-                            a(href=distillery.url) #{distillery.name}
-                        p= distillery.location
+                        div.upper-distillery-card
+                            h2 
+                                a(href=distillery.url) #{distillery.name}
+                            p= distillery.location
+                        div.lower-distillery-card
+                            a(href=`/distillery/${distillery.id}/edit` class='button button-small') Edit
+                                a(href=`/distillery/${distillery.id}/delete` class='button button-small') Delete
             else 
                 p There are no distilleries! 
 

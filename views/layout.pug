@@ -12,3 +12,29 @@ html
       a(href='/category/all' class='nav-item') Categories
       a(href='/distillery/all' class='nav-item') Distilleries
     block content
+  footer
+    div.footer
+      .navigation 
+        h3.footer-title Contribute
+        ul 
+          li 
+            a(href='/whisky/create') Add new whisky
+          li 
+            a(href='/category/create') Add new Category
+          li 
+            a(href='/distillery/create') Add new Distillery
+      .about-us
+        h3.footer-title About Us
+        ul 
+            li Our History
+            li FAQ
+            li Privacy Policy
+      .follow
+        h3.footer-title Follow Us
+        div.follow-items
+          i(class="bi bi-twitter")
+          i(class="bi bi-facebook")
+          i(class="bi bi-reddit")
+          i(class="bi bi-youtube")
+      
+

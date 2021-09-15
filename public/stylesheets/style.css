@@ -1,5 +1,12 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css");
 
+:root {
+  --main-ac-colour: rgb(80, 80, 80);
+  --main-bg-colour: rgb(216, 216, 216);
+  --main-actxt-colour: rgb(225, 225, 225);
+  --card-bg-colour: white;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -24,7 +31,7 @@ a:hover {
 }
 
 .main {
-  background-color: rgb(240, 240, 240);
+  background-color: var(--main-bg-colour);
 }
 
 /* .background-image {
@@ -42,12 +49,28 @@ a:hover {
   border: 1px solid;
   padding: 10px;
   box-shadow: 5px 10px 5px 1px #888888;
-  background-color: white;
+  background-color: var(--card-bg-colour);
   border-radius: 5px;
   width: 200px;
-  height: 250px;
+  height: 230px;
   margin: auto;
   margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.whisky-card-lower {
+  border: 1px solid #888888;
+  background-color: rgb(240, 240, 240);
+  border-radius: 3px;
+  padding: 5px;
+}
+
+.whisky-card-title {
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
 }
 
 .whisky-list {
@@ -70,7 +93,7 @@ a:hover {
 }
 
 .nav {
-  background-color: rgb(200, 200, 200);
+  background-color: var(--main-ac-colour);
   height: 30px;
   display: flex;
   align-items: center;
@@ -78,6 +101,7 @@ a:hover {
 
 .nav-item {
   padding: 5px;
+  color: var(--main-actxt-colour);
 }
 
 .nav-home {
@@ -103,7 +127,8 @@ form > button {
 .button {
   display: block;
   border: 1px solid black;
-  background-color: rgb(211, 211, 211);
+  background-color: var(--main-ac-colour);
+  color: var(--main-actxt-colour);
   padding: 5px 10px;
   border-radius: 50px;
   margin: 10px auto;
@@ -126,6 +151,7 @@ form > button {
   border: 1px solid;
   padding: 10px;
   box-shadow: 5px 10px 5px 1px #888888;
+  background-color: var(--card-bg-colour);
   border-radius: 5px;
   width: 300px;
   height: 125px;
@@ -153,6 +179,7 @@ form > button {
   border: 1px solid;
   padding: 10px;
   box-shadow: 5px 10px 5px 1px #888888;
+  background-color: var(--card-bg-colour);
   border-radius: 5px;
   width: 300px;
   height: 100px;
@@ -181,13 +208,22 @@ form > button {
   bottom: 0;
   left: 0;
   width: 100%;
-  background-color: rgb(200, 200, 200);
+  background-color: var(--main-ac-colour);
+  color: var(--main-actxt-colour);
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: flex-start;
   padding: 5px 0px;
   font-size: 14px;
+}
+
+.navigation > ul > li > a {
+  color: var(--main-actxt-colour);
+}
+
+.navigation > ul > li > a:hover {
+  color: #888888;
 }
 
 .about-us {

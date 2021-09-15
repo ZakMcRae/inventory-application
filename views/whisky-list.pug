@@ -18,16 +18,19 @@ block content
             if (whiskies)
                 for whisky in whiskies
                     div.whisky-card
-                        h4 
-                            a(href=whisky.url) #{whisky.name}
-                        a(href=whisky.url)
-                            img(src= whisky.imgUrl class='img-small')
-                        p Price: $#{whisky.price.toFixed(2)}
-                        p In Stock: #{whisky.stockQuantity}
-                        p 
-                            a(href=whisky.category.url) Category: #{whisky.category.name ||category.name}
-                        p 
-                            a(href=whisky.distillery.url) Distillery: #{whisky.distillery.name || distillery.name}
+                        .whisky-card-title
+                            h4 
+                                a(href=whisky.url) #{whisky.name}
+                        .whisky-card-image    
+                            a(href=whisky.url)
+                                img(src= whisky.imgUrl class='img-small')
+                        .whisky-card-lower
+                            p 
+                                a(href=whisky.category.url) Category: #{whisky.category.name ||category.name}
+                            p 
+                                a(href=whisky.distillery.url) Distillery: #{whisky.distillery.name || distillery.name}
+                            p In Stock: #{whisky.stockQuantity}
+                            p Price: $#{whisky.price.toFixed(2)}
             else 
                 p There are no whiskies!
 

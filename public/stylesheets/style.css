@@ -145,8 +145,6 @@ form > button {
 }
 
 .category-list {
-  /* display: flex; */
-  flex-wrap: wrap;
   max-width: 80%;
   margin: auto;
 }
@@ -174,8 +172,6 @@ form > button {
 }
 
 .distillery-list {
-  /* display: flex; */
-  flex-wrap: wrap;
   max-width: 80%;
   margin: auto;
 }
@@ -191,6 +187,7 @@ form > button {
   justify-content: space-evenly;
   align-items: flex-start;
   padding: 5px 0px;
+  font-size: 14px;
 }
 
 .about-us {

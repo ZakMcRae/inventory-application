@@ -1,17 +1,17 @@
 extends layout 
 
 block content
-    h1=title
 
     div
-        form(action="" method="POST")
+        form(action="" method="POST" class='item-form')
+            h1.main-title=title    
             label(for='name') Name: 
             input(type='text', name='name', value=(distillery === undefined ? '': distillery.name))
             
             label(for='location') Location: 
             input(type='text', name='location', value=(distillery === undefined ? '': distillery.location))
 
-            button(type='submit') Submit
+            button(type='submit' class='button') Submit
 
         if errors 
             ul 

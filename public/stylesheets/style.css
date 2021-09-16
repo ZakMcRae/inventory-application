@@ -4,7 +4,7 @@
   --main-ac-colour: rgb(80, 80, 80);
   --main-bg-colour: rgb(216, 216, 216);
   --main-actxt-colour: rgb(225, 225, 225);
-  --card-bg-colour: white;
+  --card-bg-colour: rgb(235, 235, 235);
 }
 
 * {
@@ -67,6 +67,7 @@ a:hover {
   height: 100px;
   width: 100px;
   object-fit: scale-down;
+  mix-blend-mode: multiply;
 }
 
 .whisky-card {
@@ -85,7 +86,7 @@ a:hover {
 
 .whisky-card-lower {
   border: 1px solid #888888;
-  background-color: rgb(240, 240, 240);
+  background-color: var(--main-bg-colour);
   border-radius: 3px;
   padding: 5px;
 }
@@ -104,16 +105,36 @@ a:hover {
   margin: auto;
 }
 
+.product {
+  max-width: 90%;
+  margin: 5px auto;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: var(--card-bg-colour);
+}
+
+.product-info {
+  padding: 5px;
+  background-color: var(--main-bg-colour);
+  max-width: 90%;
+  margin: 5px auto;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
 .product > img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   height: 400px;
-  width: 400px;
   object-fit: scale-down;
+  mix-blend-mode: multiply;
 }
 
 .product-description {
   margin: auto;
   margin-bottom: 10px;
-  max-width: 500px;
+  max-width: 95%;
 }
 
 .nav {
@@ -285,6 +306,7 @@ form > button {
 
 .main-title {
   padding-top: 15px;
+  max-width: 95%;
 }
 
 .main-subtitle {
@@ -310,4 +332,10 @@ form > button {
   text-shadow: 0px 0px 2px white, 2px 2px 10px #888888;
   /* text-shadow: ; */
   color: maroon;
+}
+
+@media (min-width: 650px) {
+  .product {
+    max-width: 550px;
+  }
 }

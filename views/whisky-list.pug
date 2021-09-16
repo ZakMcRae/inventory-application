@@ -26,11 +26,11 @@ block content
                                 img(src= whisky.imgUrl class='img-small')
                         .whisky-card-lower
                             p 
-                                a(href=whisky.category.url) Category: #{whisky.category.name ||category.name}
+                                a(href=whisky.category.url) #[strong Category:] #{whisky.category.name ||category.name}
                             p 
-                                a(href=whisky.distillery.url) Distillery: #{whisky.distillery.name || distillery.name}
-                            p In Stock: #{whisky.stockQuantity}
-                            p Price: $#{whisky.price.toFixed(2)}
+                                a(href=whisky.distillery.url) #[strong Distillery:] #{whisky.distillery.name || distillery.name}
+                            p #[strong In Stock:] #{whisky.stockQuantity}
+                            p #[strong Price:] $#{whisky.price.toFixed(2)}
             else 
                 p There are no whiskies!
 

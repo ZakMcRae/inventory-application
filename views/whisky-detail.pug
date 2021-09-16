@@ -1,16 +1,17 @@
 extends layout
 
 block content
-    h1= title
     div.product
+        h1.main-title= title
         img(src=whisky.imgUrl)
-        p.product-description= whisky.description
-        p.category
-            a(href=whisky.category.url)= `Category: ${whisky.category.name}`
-        p.distillery
-            a(href=whisky.distillery.url)= `Distillery: ${whisky.distillery.name}`
-        p.stock= `In Stock: ${whisky.stockQuantity}`
-        p.price= `Price: ${whisky.price.toFixed(2)}`
+        .product-info
+            p.product-description= whisky.description
+            p.category
+                a(href=whisky.category.url) #[strong Category:] #{whisky.category.name}
+            p.distillery
+                a(href=whisky.distillery.url) #[strong Distillery:] #{whisky.distillery.name}
+            p.stock #[strong In Stock:] #{whisky.stockQuantity}
+            p.price #[strong Price:] #{whisky.price.toFixed(2)}
 
-    a(href=`/whisky/${whisky.id}/edit` class='edit-button button') Edit Whisky
-    a(href=`/whisky/${whisky.id}/delete` class='delete-button button') Delete Whisky
+        a(href=`/whisky/${whisky.id}/edit` class='edit-button button') Edit Whisky
+        a(href=`/whisky/${whisky.id}/delete` class='delete-button button') Delete Whisky

@@ -11,7 +11,7 @@ block content
         div.form-group
             input(type='hidden',name='whiskyId', required='true', value=whisky._id )
 
-            input(name='adminPassword', required='true' placeholder='Admin Password')
+            input(name='adminPassword', type='password' required='true' placeholder='Admin Password')
             
             if (authorised === 'false')
                 p Incorrect Admin Password

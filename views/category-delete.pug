@@ -20,7 +20,7 @@ block content
             div.form-group
                 input(type='hidden',name='categoryId', required='true', value=category._id )
 
-                input(name='adminPassword', required='true' placeholder='Admin Password')
+                input(name='adminPassword', type='password', required='true' placeholder='Admin Password')
                 
                 if (authorised === 'false')
                     p Incorrect Admin Password

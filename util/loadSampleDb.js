@@ -6,9 +6,7 @@ const Category = require("../models/category");
 const Distillery = require("../models/distillery");
 
 const mongoose = require("mongoose");
-const category = require("../models/category");
-const distillery = require("../models/distillery");
-mongoDB = process.env.DB_URL;
+const mongoDB = process.env.DB_URL;
 
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
@@ -389,20 +387,26 @@ async function dropDatabase(callback) {
   callback();
 }
 
-function loadDatabase() {
-  async.series(
+async function loadDatabase() {
+  await async.series(
     [createCategories, createDistilleries, createWhiskies],
-    function (err, results) {
+    function (err) {
       if (err) {
         console.log("Final Err: " + err);
       } else {
         console.log("Success: Data added");
       }
-
-      mongoose.connection.close();
+      // mongoose.connection.close();
     }
   );
 }
 
-// clear out database and then fill with sample data
-dropDatabase(loadDatabase);
+async function resetDb() {
+  // clear out database and then fill with sample data
+  await dropDatabase(loadDatabase);
+}
+
+module.exports = resetDb;
+
+// to call direct uncomment below line and run node loadSampleDb
+// resetDb();

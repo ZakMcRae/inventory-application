@@ -307,6 +307,7 @@ form > button {
 .main-title {
   padding-top: 15px;
   max-width: 95%;
+  margin: auto;
 }
 
 .main-subtitle {

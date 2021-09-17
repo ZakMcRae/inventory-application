@@ -28,6 +28,7 @@ exports.getDistillery = async function (req, res, next) {
       whiskies: (callback) => {
         Whisky.find({ distillery: req.params.id })
           .populate("category")
+          .populate("distillery")
           .exec(callback);
       },
     },

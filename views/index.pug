@@ -1,10 +1,14 @@
-extends layout
+doctype html
+html
+  head
+    title= title
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='/stylesheets/style.css')
 
-block content
-  //- img(src="/images/barrel.jpeg", alt="" class='splash-background')
-  div.welcome
-    div.welcome-message
-      h1= title
-      p Welcome to #{title}
-
+  body
+  .welcome-page
+    h1.welcome-title= title
+  a(href="/whisky/all") 
+    img(src="/images/glencairn.jpg", alt="" class='glencairn')
   

@@ -6,14 +6,14 @@ block content
         form(action="" method="POST" class='item-form')
             h1= title
             label(for='name') Name: 
-            input(type='text', name='name', value=(category === undefined ? '': category.name))
+            input(type='text', required, name='name', value=(category === undefined ? '': category.name))
             
             label(for='description') Description: 
-            textarea(type='text', name='description', rows='6') #{(category === undefined  ? '': category.description)}
+            textarea(type='text', required, name='description', rows='6') #{(category === undefined  ? null: category.description)}
 
             button(type='submit' class='button') Submit
 
         if errors 
             ul 
                 for error in errors
-                    li!= error.msg
+                    li.validation-error!= error.msg

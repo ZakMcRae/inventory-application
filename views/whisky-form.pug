@@ -9,7 +9,7 @@ block content
             input(type='text', name='name', required, value=(whisky === undefined ? '': whisky.name))
             
             label(for='description') Description: 
-            textarea(type='text', name='description', rows='10' required) #{(whisky === undefined  ? '': whisky.description)}
+            textarea(type='text', name='description', rows='10' required) #{(whisky === undefined  ? null: whisky.description)}
 
             label(for='price') Price: 
             input(type='text', name='price', required, value=(whisky === undefined  ? '': whisky.price))
@@ -43,4 +43,4 @@ block content
         if errors 
             ul 
                 for error in errors
-                    li!= error.msg
+                    li.validation-error!= error.msg

@@ -277,6 +277,7 @@ exports.deleteWhiskyGet = async function (req, res, next) {
     }
 
     res.render("whisky-delete", {
+      title: "Delete Whisky",
       whisky: whisky,
       authorised: req.query.authorised,
     });

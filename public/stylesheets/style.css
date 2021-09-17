@@ -353,12 +353,66 @@ a:hover {
   text-overflow: ellipsis;
 }
 
+.delete-page {
+  margin: 5px auto;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: var(--card-bg-colour);
+  max-width: 80%;
+  min-width: 350px;
+  padding: 0px 10px;
+}
+
+.delete-item-info {
+  margin: 5px auto;
+}
+
+.warning-large {
+  color: red;
+  font-size: 18px;
+  font-weight: 800;
+  padding: 5px;
+  margin-bottom: 10px;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.to-be-deleted > p {
+  margin-bottom: 5px;
+}
+
+.to-be-deleted {
+  padding-bottom: 15px;
+}
+
+.delete-confirm {
+  margin-bottom: 10px;
+}
+
+.delete-confirm > input {
+  width: 300px;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 2px;
+  background-color: white;
+  text-align: center;
+}
+
+.validation-error {
+  color: red;
+  font-size: 18px;
+}
+
 @media (min-width: 650px) {
   .product {
     max-width: 550px;
   }
 
   .item-form {
+    max-width: 585px;
+  }
+
+  .delete-page {
     max-width: 585px;
   }
 }

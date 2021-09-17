@@ -1,19 +1,22 @@
 extends layout 
 
 block content
-    h1= title 
-    h2= whisky.name
-    p= whisky.description
+    .delete-page
+        h1.main-title= title 
+        .delete-item-info
+            h2= whisky.name
+            img(src=whisky.imgUrl, alt="", class='img-small')
+            p= whisky.description
 
-    p Are you sure you want to delete?
+        p Are you sure you want to delete?
 
-    form(method='POST' action='')
-        div.form-group
+        form(method='POST' action='' class='delete-confirm')
+            
             input(type='hidden',name='whiskyId', required='true', value=whisky._id )
 
             input(name='adminPassword', type='password' required='true' placeholder='Admin Password')
             
             if (authorised === 'false')
-                p Incorrect Admin Password
+                p.validation-error Incorrect Admin Password
 
-        button.btn.btn-primary(type='submit') Delete
+            button.btn.btn-primary(type='submit' class='button') Delete

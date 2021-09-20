@@ -40,7 +40,7 @@ exports.getWhisky = async function (req, res, next) {
 
     // if no whisky found in database throw 404
     if (whisky === null) {
-      var err = new Error("Category not found");
+      var err = new Error("Whisky not found");
       err.status = 404;
       return next(err);
     }

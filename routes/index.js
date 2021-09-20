@@ -1,11 +1,42 @@
 var express = require("express");
 var router = express.Router();
 
+const Whisky = require("../models/whisky");
+const Category = require("../models/category");
+const Distillery = require("../models/distillery");
+const async = require("async");
+
 var resetDb = require("../util/loadSampleDb");
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
-  res.render("index", { title: "Whisky Warehouse" });
+  async.parallel(
+    {
+      whiskyCount: (callback) => {
+        Whisky.count().exec(callback);
+      },
+      categoryCount: (callback) => {
+        Category.count().exec(callback);
+      },
+      distilleryCount: (callback) => {
+        Distillery.count().exec(callback);
+      },
+    },
+    (err, results) => {
+      if (err) {
+        err.message = "Something Went Wrong";
+        err.status = 500;
+        return next(err);
+      }
+
+      res.render("index", {
+        title: "Whisky Warehouse",
+        whiskyCount: results.whiskyCount,
+        categoryCount: results.categoryCount,
+        distilleryCount: results.distilleryCount,
+      });
+    }
+  );
 });
 
 // route to reset database - url is /reset?pw=Admin_Password

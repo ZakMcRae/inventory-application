@@ -380,20 +380,18 @@ a:hover {
   height: 150px;
   width: 150px;
   mix-blend-mode: multiply;
-  animation: glass-return;
-  animation-duration: 0.5s;
 }
 
 .glencairn:hover {
   animation: glass-tip;
-  animation-duration: 1s;
+  animation-duration: 1.5s;
 }
 
 @keyframes glass-tip {
   0% {
   }
   50% {
-    transform: rotate(15deg) scale(1.2);
+    transform: rotate(20deg) scale(1.2);
   }
   100% {
   }
@@ -523,9 +521,6 @@ a:hover {
   top: 40px;
   right: 25px;
   font-size: 32px;
-  /* background-color: var(--main-ac-colour); */
-  /* width: 50px;
-  height: 50px; */
 }
 
 .sort-menu-icon:hover .sort-menu {
@@ -576,8 +571,8 @@ a:hover {
 
 @media (min-width: 930px) {
   .glencairn {
-    display: block;
-    margin: auto;
+    display: inline-block;
+    margin: 10px auto;
     height: 150px;
     width: 150px;
     mix-blend-mode: multiply;

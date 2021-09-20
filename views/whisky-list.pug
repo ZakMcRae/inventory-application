@@ -15,6 +15,22 @@ block content
 
         
         if (whiskies)
+            .sort-menu-icon
+                i(class="bi bi-funnel")
+                .sort-menu
+                    ul 
+                        li
+                            a(href=`${currentUrl}/?sort=price`) Price (Low -> High)
+                        li
+                            a(href=`${currentUrl}/?sort=-price`) Price (High -> Low)
+                        li
+                            a(href=`${currentUrl}/?sort=name`) Name (A -> Z)
+                        li
+                            a(href=`${currentUrl}/?sort=-name`) Name (Z -> A)
+                        li
+                            a(href=`${currentUrl}/?sort=stockQuantity`) Stock (Low -> High)
+                        li
+                            a(href=`${currentUrl}/?sort=-stockQuantity`) Stock (High -> Low)
             div.whisky-list
                 for whisky in whiskies
                     div.whisky-card

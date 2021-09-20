@@ -518,6 +518,34 @@ a:hover {
   font-size: 24px;
 }
 
+.sort-menu-icon {
+  position: absolute;
+  top: 40px;
+  right: 25px;
+  font-size: 32px;
+  /* background-color: var(--main-ac-colour); */
+  /* width: 50px;
+  height: 50px; */
+}
+
+.sort-menu-icon:hover .sort-menu {
+  display: block;
+  transition-delay: 5s;
+}
+
+.sort-menu {
+  display: none;
+  position: absolute;
+  background-color: white;
+  font-size: 16px;
+  padding: 5px;
+  border-radius: 3px;
+  border: 1px solid black;
+  width: 200px;
+  right: -5px;
+  z-index: 1;
+}
+
 @media (min-width: 650px) {
   .product {
     max-width: 550px;

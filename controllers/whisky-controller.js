@@ -18,7 +18,11 @@ exports.allWhisky = async function (req, res, next) {
       .populate("distillery")
       .sort(sortBy)
       .exec();
-    res.render("whisky-list", { title: "Whiskies", whiskies: whiskies });
+    res.render("whisky-list", {
+      title: "Whiskies",
+      whiskies: whiskies,
+      currentUrl: req.baseUrl + "/all",
+    });
   } catch (err) {
     if (err) {
       return next(err);

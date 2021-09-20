@@ -26,9 +26,16 @@ exports.getDistillery = async function (req, res, next) {
         Distillery.findById(req.params.id).exec(callback);
       },
       whiskies: (callback) => {
+        // sort based on query parameter
+        let sortBy = "price";
+        if (req.query.sort) {
+          sortBy = req.query.sort;
+        }
+
         Whisky.find({ distillery: req.params.id })
           .populate("category")
           .populate("distillery")
+          .sort(sortBy)
           .exec(callback);
       },
     },
@@ -49,6 +56,7 @@ exports.getDistillery = async function (req, res, next) {
         title: results.distillery.name,
         distillery: results.distillery,
         whiskies: results.whiskies,
+        currentUrl: req.baseUrl + "/" + req.params.id,
       });
     }
   );

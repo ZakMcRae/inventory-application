@@ -26,9 +26,16 @@ exports.getCategory = async function (req, res, next) {
         Category.findById(req.params.id).exec(callback);
       },
       whiskies: (callback) => {
+        // sort based on query parameter
+        let sortBy = "price";
+        if (req.query.sort) {
+          sortBy = req.query.sort;
+        }
+
         Whisky.find({ category: req.params.id })
           .populate("distillery")
           .populate("category")
+          .sort(sortBy)
           .exec(callback);
       },
     },
@@ -49,6 +56,7 @@ exports.getCategory = async function (req, res, next) {
         title: results.category.name,
         category: results.category,
         whiskies: results.whiskies,
+        currentUrl: req.baseUrl + "/" + req.params.id,
       });
     }
   );

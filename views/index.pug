@@ -1,14 +1,27 @@
-doctype html
-html
-  head
-    title= title
-    meta(charset='utf-8')
-    meta(name='viewport', content='width=device-width, initial-scale=1')
-    link(rel='stylesheet', href='/stylesheets/style.css')
+extends layout
 
-  body
+block content
   .welcome-page
+    .stripe 
     h1.welcome-title= title
-  a(href="/whisky/all") 
-    img(src="/images/glencairn.jpg", alt="" class='glencairn')
+    h4.welcome-subtitle All of the best in whisky
+    a(href="/whisky/all")
+      img(src="/images/glencairn.jpg", alt="" class='glencairn')
   
+    h3.options-subtitle Browse from our options
+    .browse-by-options
+      .option-card
+        a(href="/whisky/all")
+          img(src="https://images.unsplash.com/photo-1582819509237-d5b75f20ff7a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80", alt="", class='option-image')
+          p.count=whiskyCount
+          p Whiskies
+      .option-card
+        a(href="/category/all")
+          img(src="https://distilling.com/distillermagazine/wp-content/uploads/2019/02/17F-Shots_Page_01.jpg", alt="", class='option-image')
+          p.count=categoryCount
+          p Categories
+      .option-card
+        a(href="/distillery/all")
+          img(src="https://images.unsplash.com/photo-1627125288918-35254117cf92?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80", alt="", class='option-image')
+          p.count=distilleryCount
+          p Distilleries

@@ -7,12 +7,16 @@ const async = require("async");
 // display all whiskies
 exports.allWhisky = async function (req, res, next) {
   try {
-    // todo sort list for display purposes - possibly add filter options
-    // maybe pass a query parameter? -> .sort(req.query.var)
+    // sort based on query parameter
+    let sortBy = "price";
+    if (req.query.sort) {
+      sortBy = req.query.sort;
+    }
+
     const whiskies = await Whisky.find({})
       .populate("category")
       .populate("distillery")
-      .sort("price")
+      .sort(sortBy)
       .exec();
     res.render("whisky-list", { title: "Whiskies", whiskies: whiskies });
   } catch (err) {

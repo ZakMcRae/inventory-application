@@ -14,8 +14,8 @@ block content
             h4.main-subtitle= 'Here is a list of our full selection. You can click on a category or distillery below to narrow down your options.'
 
         
-        div.whisky-list
-            if (whiskies)
+        if (whiskies)
+            div.whisky-list
                 for whisky in whiskies
                     div.whisky-card
                         .whisky-card-title
@@ -31,8 +31,8 @@ block content
                                 a(href=whisky.distillery.url) #[strong Distillery:] #{whisky.distillery.name || distillery.name}
                             p #[strong In Stock:] #{whisky.stockQuantity}
                             p #[strong Price:] $#{whisky.price.toFixed(2)}
-            else 
-                p There are no whiskies!
+        else 
+            p.none-found There are no whiskies!
 
         div.add-section
             h3 Looking for something that isn't here?

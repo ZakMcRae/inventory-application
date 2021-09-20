@@ -341,8 +341,10 @@ a:hover {
 }
 
 .main-subtitle {
+  margin: auto;
   margin-top: 10px;
   margin-bottom: 10px;
+  max-width: 90%;
 }
 
 .welcome-title {
@@ -510,6 +512,10 @@ a:hover {
   transform: skew(10deg);
   background-color: var(--main-ac-colour);
   z-index: 0;
+}
+
+.none-found {
+  font-size: 24px;
 }
 
 @media (min-width: 650px) {
